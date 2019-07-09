@@ -3,7 +3,7 @@
 <%@ include file="/view/color2.jsp"%>
 <html>
 <head><title>메인입니다..</title>
-<link href="/frame/css/style.css" rel="stylesheet" type="text/css">
+<link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <c:if test="${memId == null }">
 
