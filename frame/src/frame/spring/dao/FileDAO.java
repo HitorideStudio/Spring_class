@@ -95,15 +95,16 @@ public class FileDAO {
 			}
 			return list;
 		}
-		public void deleteImg(String imgs) throws Exception{
+		public int deleteImg(String imgs) throws Exception{
 			int x = -1;
 			conn = getConnection();
 			pstmt = conn.prepareStatement(
 					"delete from profile where newname=?");
 			pstmt.setString(1, imgs);
 			pstmt.executeUpdate();
-			x=1;
+			return x=1;
 			
 			
 		}
+		
 	}

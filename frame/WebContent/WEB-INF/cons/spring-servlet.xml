@@ -35,5 +35,16 @@
     	<property name="defaultEncoding" value="UTF-8"/>
     </bean>
     <bean id="fileDAO" class="frame.spring.dao.FileDAO"/>
+    <bean id="fileVO" class="frame.spring.vo.FileVO"/>
+     
+     <bean id="downloadView" class="upload.bean.DownloadView" />
+     <bean id="downloadViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" >
+         <property name="order" value="0"></property>
+      </bean>
+      
+    <bean id="BoardDBBean" class="board.BoardDBBean"></bean>
+	<bean id="BoardDataBean" class="board.BoardDataBean"></bean>
+     
+    
 
 </beans>
