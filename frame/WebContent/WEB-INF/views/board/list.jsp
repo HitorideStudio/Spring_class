@@ -1,23 +1,23 @@
 
-<%@ page contentType = "text/html; charset=euc-kr" %>
+<%@ page contentType = "text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/view/color2.jsp"%>
 
 
 <html>
 <head>
-<title>°Ô½ÃÆÇ</title>
+<title>ê²Œì‹œíŒ</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <%
    
 %>
 <body bgcolor="${bodyback_c}">
-<center><b>±Û¸ñ·Ï(ÀüÃ¼ ±Û:${count})</b>
+<center><b>ê¸€ëª©ë¡(ì „ì²´ ê¸€:${count})</b>
 <table width="700">
 <tr>
     <td align="right" bgcolor="${value_c}">
-    <a href="writeForm.do">±Û¾²±â</a>
+    <a href="writeForm.do">ê¸€ì“°ê¸°</a>
     </td>
 </table>
 
@@ -27,18 +27,18 @@
 <table width="700" border="1" cellpadding="0" cellspacing="0">
 <tr>
     <td align="center">
-    °Ô½ÃÆÇ¿¡ ÀúÀåµÈ ±ÛÀÌ ¾ø½À´Ï´Ù.
+    ê²Œì‹œíŒì— ì €ìž¥ëœ ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.
     </td>
 </table>
 </c:when>
 <c:otherwise>
 <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="30" bgcolor="${value_c}"> 
-      <td align="center"  width="50"  >¹ø È£</td> 
-      <td align="center"  width="250" >Á¦   ¸ñ</td> 
-      <td align="center"  width="100" >ÀÛ¼ºÀÚ</td>
-      <td align="center"  width="150" >ÀÛ¼ºÀÏ</td> 
-      <td align="center"  width="50" >Á¶ È¸</td> 
+      <td align="center"  width="50"  >ë²ˆ í˜¸</td> 
+      <td align="center"  width="250" >ì œ   ëª©</td> 
+      <td align="center"  width="100" >ìž‘ì„±ìž</td>
+      <td align="center"  width="150" >ìž‘ì„±ì¼</td> 
+      <td align="center"  width="50" >ì¡° íšŒ</td> 
       <td align="center"  width="100" >IP</td>    
     </tr>
     
@@ -75,13 +75,13 @@
 </c:choose>
 <c:if test="${count> 0 }">
    <c:if test="${startPage>10}">
-       <a href="list.do?pageNum=${startPage - 10 }">[ÀÌÀü]</a>
+       <a href="list.do?pageNum=${startPage - 10 }">[ì´ì „]</a>
    </c:if>
    <c:forEach begin="${startPage}"  end="${endPage}" step="1" var="i">
       <a href="list.do?pageNum=${i }">[${i}]</a>
    </c:forEach>
    <c:if test="${endPage < pageCount }">
-       <a href="list.do?pageNum=${startPage + 10  }">[´ÙÀ½]</a>
+       <a href="list.do?pageNum=${startPage + 10  }">[ë‹¤ìŒ]</a>
    </c:if>
 </c:if>
 

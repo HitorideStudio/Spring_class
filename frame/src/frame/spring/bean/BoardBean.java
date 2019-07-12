@@ -149,18 +149,15 @@ public class BoardBean {
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-		article.setWriter(request.getParameter("writer"));
-		article.setEmail(request.getParameter("email"));
-		article.setSubject(request.getParameter("subject"));
-		article.setPasswd(request.getParameter("passwd"));
-		article.setContent(request.getParameter("content"));
-		article.setNum(num);
-		
-		
-		
 		try {
-			
+			request.setCharacterEncoding("UTF-8");
 			int check = dao.updateArticle(article);
+			article.setWriter(request.getParameter("writer"));
+			article.setEmail(request.getParameter("email"));
+			article.setSubject(request.getParameter("subject"));
+			article.setPasswd(request.getParameter("passwd"));
+			article.setContent(request.getParameter("content"));
+			article.setNum(num);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("check", check);
 		} catch (Exception e) {
@@ -174,6 +171,7 @@ public class BoardBean {
 	public String writeForm(HttpServletRequest request, HttpServletResponse response) {
 		int num=0,ref=1,re_step=0,re_level=0;
 		  try{  
+			
 		    if(request.getParameter("num")!=null){
 			num=Integer.parseInt(request.getParameter("num"));
 			ref=Integer.parseInt(request.getParameter("ref"));
@@ -200,6 +198,7 @@ public class BoardBean {
 		int re_level= Integer.parseInt(request.getParameter("re_level"));
 		
 	    try {
+	    	request.setCharacterEncoding("UTF-8");
 	    
 	    article.setNum(num);
 	    article.setWriter(request.getParameter("writer"));
