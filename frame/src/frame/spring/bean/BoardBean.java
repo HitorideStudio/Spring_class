@@ -132,7 +132,7 @@ public class BoardBean {
 		
 		try {
 			article =dao.updateGetArticle(num);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.setAttribute("num", num);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("article", article);
@@ -178,6 +178,7 @@ public class BoardBean {
 			re_step=Integer.parseInt(request.getParameter("re_step"));
 			re_level=Integer.parseInt(request.getParameter("re_level"));
 		    }
+		    request.setCharacterEncoding("UTF-8");
 		    request.setAttribute("num", num);
 		    request.setAttribute("ref", ref);
 		    request.setAttribute("re_step", re_step);
