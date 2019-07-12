@@ -1,5 +1,6 @@
 package frame.spring.bean;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -51,11 +52,28 @@ public class BoardBean {
 		 return "/board/content";
 	}
 	@RequestMapping("deleteForm.do")
-	public String deleteForm() {
+	public String deleteForm(HttpServletRequest request, HttpServletResponse response) {
+		  int num = Integer.parseInt(request.getParameter("num"));
+		  String pageNum = request.getParameter("pageNum");
+		  
+		  request.setAttribute("num", num);
+		  request.setAttribute("pageNum", pageNum);
 		 return "/board/deleteForm";
 	}
 	@RequestMapping("deletePro.do")
-	public String deletePro() {
+	public String deletePro(HttpServletRequest request, HttpServletResponse response) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");
+		String passwd = request.getParameter("passwd");
+		try {
+			int check = dao.deleteArticle(num, passwd);
+			request.setAttribute("check", check);
+			request.setAttribute("pageNum", pageNum);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
 		 return "/board/deletePro";
 	}
 	@RequestMapping("list.do")
@@ -108,19 +126,100 @@ public class BoardBean {
 		 return "/board/list";
 	}
 	@RequestMapping("updateForm.do")
-	public String updateForm() {
+	public String updateForm(HttpServletRequest request, HttpServletResponse response) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");
+		
+		try {
+			article =dao.updateGetArticle(num);
+			
+			request.setAttribute("num", num);
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("article", article);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
 		 return "/board/updateForm";
 	}
 	@RequestMapping("updatePro.do")
-	public String updatePro() {
+	public String updatePro(HttpServletRequest request,HttpServletResponse response) {
+		
+		String pageNum = request.getParameter("pageNum");
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		article.setWriter(request.getParameter("writer"));
+		article.setEmail(request.getParameter("email"));
+		article.setSubject(request.getParameter("subject"));
+		article.setPasswd(request.getParameter("passwd"));
+		article.setContent(request.getParameter("content"));
+		article.setNum(num);
+		
+		
+		
+		try {
+			
+			int check = dao.updateArticle(article);
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("check", check);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		 return "/board/updatePro";
 	}
 	@RequestMapping("writeForm.do")
-	public String writeForm() {
+	public String writeForm(HttpServletRequest request, HttpServletResponse response) {
+		int num=0,ref=1,re_step=0,re_level=0;
+		  try{  
+		    if(request.getParameter("num")!=null){
+			num=Integer.parseInt(request.getParameter("num"));
+			ref=Integer.parseInt(request.getParameter("ref"));
+			re_step=Integer.parseInt(request.getParameter("re_step"));
+			re_level=Integer.parseInt(request.getParameter("re_level"));
+		    }
+		    request.setAttribute("num", num);
+		    request.setAttribute("ref", ref);
+		    request.setAttribute("re_step", re_step);
+		    request.setAttribute("re_level", re_level);
+		    
+		  	}catch(Exception e){
+		    	
+		    }
+		
 		 return "/board/writeForm";
 	}
 	@RequestMapping("writePro.do")
-	public String writePro() {
+	public String writePro( HttpServletRequest request, HttpServletResponse response) {
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		int ref = Integer.parseInt(request.getParameter("ref"));
+		int re_step = Integer.parseInt(request.getParameter("re_step"));
+		int re_level= Integer.parseInt(request.getParameter("re_level"));
+		
+	    try {
+	    
+	    article.setNum(num);
+	    article.setWriter(request.getParameter("writer"));
+	    article.setSubject(request.getParameter("subject"));
+	    article.setEmail(request.getParameter("email"));
+	    article.setContent(request.getParameter("content"));
+	    article.setPasswd(request.getParameter("passwd"));
+	    article.setRef(ref);
+	    article.setRe_level(re_level);
+	    article.setRe_step(re_step);
+	    article.setReg_date(new Timestamp(System.currentTimeMillis()));
+	    article.setIp(request.getRemoteAddr());
+	    
+	    
+	    
+	    dao.insertArticle(article);
+	   
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    }
 		 return "/board/writePro";
 	}
 

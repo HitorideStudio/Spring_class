@@ -1,17 +1,17 @@
-<%@ page contentType="text/html;charset=euc-kr" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/view/color2.jsp"%>
 
 <html>
 <head>
-<title>°Ô½ÃÆÇ</title>
+<title>ê²Œì‹œíŒ</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 
 <script language="JavaScript">      
      
   function deleteSave(){	
 	if(document.delForm.passwd.value==''){
-	alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿ä.");
+	alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹­ì‹œìš”.");
 	document.delForm.passwd.focus();
 	return false;
  }
@@ -20,24 +20,24 @@
 </head>
 
 <body bgcolor="${bodyback_c}">
-<center><b>±Û»èÁ¦</b>
+<center><b>ê¸€ì‚­ì œ</b>
 <br>
 <form method="POST" name="delForm"  action="deletePro.do?pageNum=${pageNum}" 
    onsubmit="return deleteSave()"> 
  <table border="1" align="center" cellspacing="0" cellpadding="0" width="360">
   <tr height="30">
      <td align=center  bgcolor="${value_c}">
-       <b>ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.</b></td>
+       <b>ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.</b></td>
   </tr>
   <tr height="30">
-     <td align=center >ºñ¹Ğ¹øÈ£ :   
+     <td align=center >ë¹„ë°€ë²ˆí˜¸ :   
        <input type="password" name="passwd" size="8" maxlength="12">
 	   <input type="hidden" name="num" value="${num}"></td>
  </tr>
  <tr height="30">
     <td align=center bgcolor="${value_c}">
-      <input type="submit" value="±Û»èÁ¦" >
-      <input type="button" value="±Û¸ñ·Ï" 
+      <input type="submit" value="ê¸€ì‚­ì œ" >
+      <input type="button" value="ê¸€ëª©ë¡" 
        onclick="document.location.href='list.do?pageNum=${pageNum}'">     
    </td>
  </tr>  

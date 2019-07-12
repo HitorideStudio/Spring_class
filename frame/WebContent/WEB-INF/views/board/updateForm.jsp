@@ -1,26 +1,26 @@
-<%@ page contentType = "text/html; charset=euc-kr" %>
+<%@ page contentType = "text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/view/color2.jsp"%>
 <html>
 <head>
-<title>°Ô½ÃÆÇ</title>
+<title>ê²Œì‹œíŒ</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" src="script.js"></script>
 </head>
 
 <body bgcolor="${bodyback_c}">  
-<center><b>±Û¼öÁ¤</b>
+<center><b>ê¸€ìˆ˜ì •</b>
 <br>
 <form method="post" name="writeform" action="updatePro.do?pageNum=${pageNum}&num=${num}" onsubmit="return writeSave()">
 <table width="400" border="1" cellspacing="0" cellpadding="0"  bgcolor="${bodyback_c}" align="center">
   <tr>
-    <td  width="70"  bgcolor="${value_c}" align="center">ÀÌ ¸§</td>
+    <td  width="70"  bgcolor="${value_c}" align="center">ì´ ë¦„</td>
     <td align="left" width="330">
        <input type="text" size="10" maxlength="10" name="writer" value="${article.getWriter()}">
 	   <input type="hidden" name="num" value="${article.getNum()}"></td>
   </tr>
   <tr>
-    <td  width="70"  bgcolor="${value_c}" align="center" >Á¦ ¸ñ</td>
+    <td  width="70"  bgcolor="${value_c}" align="center" >ì œ ëª©</td>
     <td align="left" width="330">
        <input type="text" size="40" maxlength="50" name="subject" value="${article.getSubject()}"></td>
   </tr>
@@ -30,12 +30,12 @@
        <input type="text" size="40" maxlength="30" name="email" value="${article.getEmail()}"></td>
   </tr>
   <tr>
-    <td  width="70"  bgcolor="${value_c}" align="center" >³» ¿ë</td>
+    <td  width="70"  bgcolor="${value_c}" align="center" >ë‚´ ìš©</td>
     <td align="left" width="330">
      <textarea name="content" rows="13" cols="40">${article.getContent()}</textarea></td>
   </tr>
   <tr>
-    <td  width="70"  bgcolor="${value_c}" align="center" >ºñ¹Ð¹øÈ£</td>
+    <td  width="70"  bgcolor="${value_c}" align="center" >ë¹„ë°€ë²ˆí˜¸</td>
     <td align="left" width="330" >
      <input type="password" size="8" maxlength="12" name="passwd">
      
@@ -43,9 +43,9 @@
   </tr>
   <tr>      
    <td colspan=2 bgcolor="${value_c}" align="center"> 
-     <input type="submit" value="±Û¼öÁ¤" >  
-     <input type="reset" value="´Ù½ÃÀÛ¼º">
-     <input type="button" value="¸ñ·Ïº¸±â" 
+     <input type="submit" value="ê¸€ìˆ˜ì •" >  
+     <input type="reset" value="ë‹¤ì‹œìž‘ì„±">
+     <input type="button" value="ëª©ë¡ë³´ê¸°" 
        onclick="document.location.href='list.do?pageNum=${pageNum}'">
    </td>
  </tr>
