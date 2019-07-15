@@ -1,5 +1,6 @@
 package frame.spring.bean;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import board.BoardDBBean;
 import board.BoardDataBean;
@@ -190,8 +194,8 @@ public class BoardBean {
 		
 		 return "/board/writeForm";
 	}
-	@RequestMapping("writePro.do")
-	public String writePro( HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="writePro.do", method=RequestMethod.POST)
+	public String writePro( MultipartHttpServletRequest request, HttpServletResponse response) {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		int ref = Integer.parseInt(request.getParameter("ref"));
@@ -200,7 +204,18 @@ public class BoardBean {
 		
 	    try {
 	    	request.setCharacterEncoding("UTF-8");
-	    
+	    MultipartFile mf = request.getFile("save");
+	    String imgs = request.getRealPath("imgs");
+	    String orgName = mf.getOriginalFilename();
+		String ext = orgName.substring(orgName.lastIndexOf('.'));
+		//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
+		int numi = dao.getNum();
+		String newName = "images" + numi +ext;
+	
+		File copyFile = new File( imgs+"//" +newName);
+		mf.transferTo(copyFile);
+		article.setNewname(newName);
+		article.setOrgname(orgName);
 	    article.setNum(num);
 	    article.setWriter(request.getParameter("writer"));
 	    article.setSubject(request.getParameter("subject"));

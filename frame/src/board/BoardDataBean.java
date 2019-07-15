@@ -15,7 +15,21 @@ public class BoardDataBean{
     private int ref;
     private int re_step;	
     private int re_level;
+    private String orgname;
+	private String newname;
 
+	public String getOrgname() {
+		return orgname;
+	}
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
+	}
+	public String getNewname() {
+		return newname;
+	}
+	public void setNewname(String newname) {
+		this.newname = newname;
+	}
 	public void setNum(int num){
     	this.num=num;
     }

@@ -6,6 +6,9 @@ import javax.naming.*;
 import java.util.*; 
 
 public class BoardDBBean {
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 
 	private static BoardDBBean instance = new BoardDBBean();
 	
@@ -22,9 +25,6 @@ public class BoardDBBean {
 	
 	public void insertArticle(BoardDataBean article) throws Exception {
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		int num=article.getNum();
 		int ref=article.getRef();
 		int re_step=article.getRe_step();
@@ -55,7 +55,7 @@ public class BoardDBBean {
 			}
  
 			sql = "insert into board(num,writer,email,subject,passwd,reg_date,";
-			sql+="ref,re_step,re_level,content,ip) values(board_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
+			sql+="ref,re_step,re_level,content,ip,orgname,newname) values(board_seq.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)";
 				pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getWriter());
 			pstmt.setString(2, article.getEmail());
@@ -67,6 +67,9 @@ public class BoardDBBean {
 			pstmt.setInt(8, re_level);
 			pstmt.setString(9, article.getContent());
 			pstmt.setString(10, article.getIp());
+			pstmt.setString(11, article.getOrgname());
+			pstmt.setString(12, article.getNewname());
+			
 			pstmt.executeUpdate();
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -77,11 +80,32 @@ public class BoardDBBean {
 		}
 	}
 	
+	public int getNum()throws Exception{
+		int num =0;
+		try {
+			conn = getConnection();
+			String sql ="insert into fileNum values(fileNum_seq.nextval)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			sql = "select max(num) from fileNum";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				num = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs!=null)try { rs.close();}catch(SQLException ex){}
+				if(pstmt!=null)try { pstmt.close();}catch(SQLException ex){}
+				if(conn!=null)try { conn.close();}catch(SQLException ex){}
+				}
+				return num;
+				}
+		
 	
 	public int getArticleCount() throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	
 		int x=0;
 		try {
 			conn = getConnection();
@@ -102,9 +126,7 @@ public class BoardDBBean {
 	
 
 	public List getArticles(int start, int end) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+
 		List articleList=null;
 		try {
 			conn = getConnection();
@@ -149,9 +171,7 @@ public class BoardDBBean {
 	}
 	
 	public BoardDataBean getArticle(int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	
 		BoardDataBean article=null;
 		try {
 			conn = getConnection();
@@ -191,9 +211,7 @@ public class BoardDBBean {
 	
 	
 	public BoardDataBean updateGetArticle(int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	
 		BoardDataBean article=null;
 		try {
 			conn = getConnection();
@@ -229,9 +247,7 @@ public class BoardDBBean {
 	
 
 	public int updateArticle(BoardDataBean article) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs= null;
+	
 		String dbpasswd="";
 		String sql="";
 		int x=-1;
@@ -271,9 +287,7 @@ public class BoardDBBean {
 	
 
 	public int deleteArticle(int num, String passwd) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs= null;
+	
 		String dbpasswd="";
 		int x=-1;
 		try {
