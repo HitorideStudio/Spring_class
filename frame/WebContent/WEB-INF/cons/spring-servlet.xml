@@ -11,20 +11,18 @@
 	   http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
 
 >
- 
-	<bean id="hello" class="frame.spring.bean.HelloBean" />
-	<bean id="main" class="frame.spring.bean.MainBean"/>
-	
-	
+
+	<bean id="hello" class="frame.spring.bean.HelloBean"/>
+
 	<bean id="b" class="frame.spring.vo.Bar"/>
 	<bean id="d" class="java.util.Date"/>
 	<bean id="f" class="frame.spring.vo.Foo">
 		<constructor-arg ref="b" />
 		<property name="id" value="java"/>
 		<property name="pw" value="1234"/>
-		<property name="day" ref="d" />
+		<property name="day" ref="d"/>
 	</bean>
-
+	
 	<context:component-scan base-package="frame.spring.bean"/>
 	<bean id="LogonDBBean" class="ch11.logon.LogonDBBean"></bean>
 	<bean id="LogonDataBean" class="ch11.logon.LogonDataBean"></bean>
@@ -46,8 +44,8 @@
          <property name="order" value="0"></property>
       </bean>
       
-    <bean id="BoardDBBean" class="board.BoardDBBean"/>
-	<bean id="BoardDataBean" class="board.BoardDataBean"/>
+    <bean id="BoardDBBean" class="board.BoardDBBean"></bean>
+	<bean id="BoardDataBean" class="board.BoardDataBean"></bean>
 	<bean id="before" class="frame.aop.advice.BeforeAdvice"/>
      <!-- 
     <aop:config>
