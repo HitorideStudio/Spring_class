@@ -36,7 +36,8 @@
   </tr>
   <tr>
     <td align="center" width="125" bgcolor="${value_c}">글내용</td>
-    <td align="left" width="375" colspan="3"><pre>${article.getContent()}</pre></td>
+    <td align="left" width="375" colspan="3"><pre>${article.getContent()}<br>
+    <img src="/frame/imgs/${newname}" width="150px"/></pre></td>
   </tr>
   <tr height="30">      
     <td colspan="4" bgcolor="${value_c}" align="right" > 

@@ -197,6 +197,7 @@ public class BoardDBBean {
 				article.setRe_level(rs.getInt("re_level"));
 				article.setContent(rs.getString("content"));
 				article.setIp(rs.getString("ip"));
+				article.setNewname(rs.getString("newname"));
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -233,6 +234,7 @@ public class BoardDBBean {
 				article.setRe_level(rs.getInt("re_level"));
 				article.setContent(rs.getString("content"));
 				article.setIp(rs.getString("ip"));
+				article.setNewname(rs.getString("newname"));
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -261,14 +263,16 @@ public class BoardDBBean {
 				dbpasswd= rs.getString("passwd"); 
 				if(dbpasswd.equals(article.getPasswd())){
 					sql="update board set writer=?,email=?,subject=?,passwd=?";
-					sql+=",content=? where num=?";
+					sql+=",content=?,orgname=?,newname=? where num=?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, article.getWriter());
 					pstmt.setString(2, article.getEmail());
 					pstmt.setString(3, article.getSubject());
 					pstmt.setString(4, article.getPasswd());
 					pstmt.setString(5, article.getContent());
-					pstmt.setInt(6, article.getNum());
+					pstmt.setString(6, article.getOrgname());
+					pstmt.setString(7, article.getNewname());
+					pstmt.setInt(8, article.getNum());
 					pstmt.executeUpdate();
 					x= 1;
 				}else{

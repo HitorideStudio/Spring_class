@@ -41,7 +41,7 @@ public class BoardBean {
 			  int ref=article.getRef();
 			  int re_step=article.getRe_step();
 			  int re_level=article.getRe_level();
-			 
+			  String newname = article.getNewname();
 			  request.setAttribute("num", num);
 			  request.setAttribute("pageNum", pageNum);
 			  request.setAttribute("sdf", sdf);
@@ -49,6 +49,8 @@ public class BoardBean {
 			  request.setAttribute("re_step", re_step);
 			  request.setAttribute("re_level", re_level);
 			  request.setAttribute("article", article);
+			  request.setAttribute("newname", newname);
+			  System.out.println(newname);
 			  
 		   }catch(Exception e) {
 			   e.printStackTrace();
@@ -56,20 +58,26 @@ public class BoardBean {
 		 return "/board/content";
 	}
 	@RequestMapping("deleteForm.do")
-	public String deleteForm(HttpServletRequest request, HttpServletResponse response) {
+	public String deleteForm(HttpServletRequest request, HttpServletResponse response)throws Exception {
 		  int num = Integer.parseInt(request.getParameter("num"));
 		  String pageNum = request.getParameter("pageNum");
-		  
+		  article = dao.getArticle(num);
 		  request.setAttribute("num", num);
 		  request.setAttribute("pageNum", pageNum);
+		  request.setAttribute("newname", article.getNewname());
 		 return "/board/deleteForm";
 	}
 	@RequestMapping("deletePro.do")
 	public String deletePro(HttpServletRequest request, HttpServletResponse response) {
+		String newname = request.getParameter("newname");
+		String imgs = request.getRealPath("imgs");
+		System.out.println(newname);
 		int num = Integer.parseInt(request.getParameter("num"));
 		String pageNum = request.getParameter("pageNum");
 		String passwd = request.getParameter("passwd");
 		try {
+			File f = new File( imgs+"//" +newname);
+			f.delete();
 			int check = dao.deleteArticle(num, passwd);
 			request.setAttribute("check", check);
 			request.setAttribute("pageNum", pageNum);
@@ -140,6 +148,7 @@ public class BoardBean {
 			request.setAttribute("num", num);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("article", article);
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -147,14 +156,24 @@ public class BoardBean {
 		
 		 return "/board/updateForm";
 	}
-	@RequestMapping("updatePro.do")
-	public String updatePro(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value="updatePro.do",method=RequestMethod.POST)
+	public String updatePro(MultipartHttpServletRequest request,HttpServletResponse response) {
 		
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		try {
 			request.setCharacterEncoding("UTF-8");
+			 MultipartFile mf = request.getFile("save");
+			    String imgs = request.getRealPath("imgs");
+			    String orgname = mf.getOriginalFilename();
+				String ext = orgname.substring(orgname.lastIndexOf('.'));
+				//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
+				int numi = dao.getNum();
+				String newname = "images" + numi +ext;
+			
+				File copyFile = new File( imgs+"//" +newname);
+				mf.transferTo(copyFile);
 			int check = dao.updateArticle(article);
 			article.setWriter(request.getParameter("writer"));
 			article.setEmail(request.getParameter("email"));
@@ -162,6 +181,10 @@ public class BoardBean {
 			article.setPasswd(request.getParameter("passwd"));
 			article.setContent(request.getParameter("content"));
 			article.setNum(num);
+			article.setNewname(newname);
+			article.setOrgname(orgname);
+			dao.updateArticle(article);
+			
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("check", check);
 		} catch (Exception e) {
@@ -206,16 +229,16 @@ public class BoardBean {
 	    	request.setCharacterEncoding("UTF-8");
 	    MultipartFile mf = request.getFile("save");
 	    String imgs = request.getRealPath("imgs");
-	    String orgName = mf.getOriginalFilename();
-		String ext = orgName.substring(orgName.lastIndexOf('.'));
+	    String orgname = mf.getOriginalFilename();
+		String ext = orgname.substring(orgname.lastIndexOf('.'));
 		//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
 		int numi = dao.getNum();
-		String newName = "images" + numi +ext;
+		String newname = "images" + numi +ext;
 	
-		File copyFile = new File( imgs+"//" +newName);
+		File copyFile = new File( imgs+"//" +newname);
 		mf.transferTo(copyFile);
-		article.setNewname(newName);
-		article.setOrgname(orgName);
+		article.setNewname(newname);
+		article.setOrgname(orgname);
 	    article.setNum(num);
 	    article.setWriter(request.getParameter("writer"));
 	    article.setSubject(request.getParameter("subject"));
