@@ -12,7 +12,7 @@
 
 >
 
-	<bean id="hello" class="frame.spring.bean.HelloBean"/>
+
 
 	<bean id="b" class="frame.spring.vo.Bar"/>
 	<bean id="d" class="java.util.Date"/>
