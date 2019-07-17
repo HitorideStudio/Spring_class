@@ -26,7 +26,7 @@ public class LoginAdvice {
 		
 		
 		ServletRequestAttributes sra = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
-		Object pro = "/member/main";
+		Object pro = "/test/loginForm";
 		HttpServletRequest request =sra.getRequest();
 		HttpSession session = request.getSession();
 		if(session != null) {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
- <form action ="formPro.do" method="post" enctype="mutipart/form-data">
+ <form action ="formPro.do" method="post" enctype="multipart/form-data">
  	id : <input type ="text" name="id"/><br/>
  	pw : <input type ="password" name="pw"/><br/>
  	age : <input type ="text" name="age"/><br/>

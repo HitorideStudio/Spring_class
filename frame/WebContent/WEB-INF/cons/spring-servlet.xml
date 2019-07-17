@@ -65,7 +65,7 @@
     
     <bean id="dataSource"
     	class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"
-    	p:driverClassName="orcle.jdbc.driver.OracleDriver"
+    	p:driverClassName="oracle.jdbc.driver.OracleDriver"
     	p:url="jdbc:oracle:thin:@nullmaster.iptime.org:1521:xe"
     	p:username="class04"
    	 	p:password="class04"

@@ -32,11 +32,11 @@ public class MemberBean {
 	public String main() {
 		return "/member/main";
 	}
-	@RequestMapping("loginForm.do")
+	@RequestMapping("logForm.do")
 	public String Form() {
-		return "/member/loginForm";
+		return "/member/logForm";
 	}
-	@RequestMapping("loginPro.do")
+	@RequestMapping("logPro.do")
 	public String Pro(String id, String passwd,
 			HttpSession session, Model model) {
 		try {
@@ -49,10 +49,10 @@ public class MemberBean {
 			e.printStackTrace();
 		}
 		System.out.println("로그인프로 진행중이다");
-		return "/member/loginPro";
+		return "/member/logPro";
 	}
 	@RequestMapping("logout.do")
-	public String loginout(HttpSession session, HttpServletRequest request) {
+	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();
 		return "/member/logout";
 	}
@@ -97,11 +97,11 @@ public class MemberBean {
 		return "/member/confirmId";
 	}
 	@RequestMapping("modify.do")
-	public String loginmodify() {
+	public String logmodify() {
 		return "/member/modify";
 	}
 	@RequestMapping("modifyForm.do")
-	public String loginmodifyForm(HttpSession session, Model model,HttpServletRequest request) {
+	public String logmodifyForm(HttpSession session, Model model,HttpServletRequest request) {
 		String id = (String)session.getAttribute("memId");
 		try {
 			
@@ -114,7 +114,7 @@ public class MemberBean {
 		return "/member/modifyForm";
 	}
 	@RequestMapping("modifyPro.do")
-	public String loginmodifyPro(HttpServletRequest request, HttpServletResponse response,
+	public String logmodifyPro(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session, Model model) {
 		String id = (String)session.getAttribute("memId");
 	
@@ -137,11 +137,11 @@ public class MemberBean {
 		return "/member/modifyPro";
 	}
 	@RequestMapping("deleteForm.do")
-	public String logindeleteForm() {
+	public String logdeleteForm() {
 		return "/member/deleteForm";
 	}
 	@RequestMapping("deletePro.do")
-	public String logindeletePro(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	public String logdeletePro(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			Model model) {
 		String id = (String)session.getAttribute("memId");
 		String passwd = request.getParameter("passwd");
