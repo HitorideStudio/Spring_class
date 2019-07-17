@@ -3,6 +3,7 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
 	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:p="http://www.springframework.org/schema/p"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   http://www.springframework.org/schema/beans/spring-beans.xsd
 	   http://www.springframework.org/schema/context
@@ -61,5 +62,23 @@
     <bean id="la" class="frame.aop.advice.LoginAdvice"/>
     
     <aop:aspectj-autoproxy/>
+    
+    <bean id="dataSource"
+    	class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"
+    	p:driverClassName="orcle.jdbc.driver.OracleDriver"
+    	p:url="jdbc:oracle:thin:@nullmaster.iptime.org:1521:xe"
+    	p:username="class04"
+   	 	p:password="class04"
+    	destroy-method="close"
+    />
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"/>
+    	<property name="configLocation" value="/WEB-INF/mybatis/mybatis-config.xml"></property>
+    </bean>
+    
+    <bean id ="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+    	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    
 
 </beans>
