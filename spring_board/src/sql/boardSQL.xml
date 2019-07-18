@@ -13,7 +13,7 @@
 			select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,r
 			from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,rownum r
 			from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount
-			from board order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= ? and r <= ?
+			from board order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= #{list0} and r <= #{list1}
 			]]>
 		</select>
 	

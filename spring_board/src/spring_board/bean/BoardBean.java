@@ -117,9 +117,12 @@ public class BoardBean {
            try {
           List articleList = null;
           
+          ArrayList list = new ArrayList();
+          list.add("startRow");
+          list.add("endRow");
           
    
-             count = sql.selectOne("board.getArticleCount",list);
+             count = (Integer)sql.selectOne("board.getArticleCount",list);
              if (count > 0) {
                  articleList = new ArrayList();
                  BoardVO article= new BoardVO();
