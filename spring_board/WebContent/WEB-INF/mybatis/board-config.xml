@@ -4,11 +4,11 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="tv" type="frame.spring.vo.TestVO"/>
+		<typeAlias alias="tv" type="board.BoardVO"/>
 	
 	</typeAliases>
 	<mappers>
-		<mapper resource="/sql/testSQL.xml"/>
-		<mapper resource="/sql/activeSQL.xml"/>
+		<mapper resource="/sql/boardSQL.xml"/>
+		
 	</mappers>
 </configuration>

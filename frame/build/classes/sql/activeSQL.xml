@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="active">
+	
+		<select id="count" resultType="int" parameterType="tv">
+		 	
+		 	select count(*) from test 
+		 	<trim prefix="where" prefixOverrides="and|or">
+		 		<if test="id != null">
+		 			 id = #{id}
+		 		</if>
+		 
+		 		<if test="pw != null">
+		 			and pw = #{pw}
+		 		</if>
+		 	</trim>
+		</select>
+		
+		<!--  
+		update test set pw='1234', name ='javaman', where id='test1'
+		
+		<update>
+			update test
+			<trim prefix="set" suffixOverrides=",">
+				<if test ="pw !=null">pw=#{pw},</if>
+				<if test ="name !=null">name=#{name},</if>
+				<if test ="img !=null">img=#{img},</if>
+			</trim>
+			where id=#{id}
+		</update>
+		-->
+		<select id="selectIn" resultType="int" parameterType="list">
+			select count(*) from test where id in 	
+					<foreach collection="list" item="item" open="(" close=")" separator="," >
+					#{item}
+					</foreach>
+		</select>
+		
+		<select id="like" parameterType="String" >
+			select * from test where id like '%'||#{value}||'%'
+	
+		</select>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</mapper>
