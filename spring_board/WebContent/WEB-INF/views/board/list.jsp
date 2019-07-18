@@ -16,7 +16,7 @@
 <table width="700">
 <tr>
     <td align="right" bgcolor="${value_c}">
-    <a href="writeForm.do">글쓰기</a>
+    <a href="writeForm.git">글쓰기</a>
     </td>
 </table>
 
@@ -41,7 +41,7 @@
       <td align="center"  width="100" >IP</td>    
     </tr>
     
-    <c:forEach begin="0" end="${articleList.size()-1}" step="1" var="a">
+    <c:forEach begin="0" end="${articleList.size()}" step="1" var="a">
       <c:set var="article" value="${articleList[a]}"/>
    <tr height="30">
     <td align="center"  width="50" > ${number} <c:set var="number" value="${number-1 }"/> </td>
@@ -57,7 +57,7 @@
      <img src="/frame/images/level.gif" width="${wid }" height="16">
    </c:otherwise>
    </c:choose>
-      <a href="content.do?num=${article.num }&pageNum=${currentPage}">
+      <a href="content.git?num=${article.num }&pageNum=${currentPage}">
           ${article.subject}</a> 
           <c:if test="${article.readcount>=20 }">
          <img src="/frame/images/hot.gif" border="0"  height="16">
@@ -74,13 +74,13 @@
 </c:choose>
 <c:if test="${count> 0 }">
    <c:if test="${startPage>10}">
-       <a href="list.do?pageNum=${startPage - 10 }">[이전]</a>
+       <a href="list.git?pageNum=${startPage - 10 }">[이전]</a>
    </c:if>
    <c:forEach begin="${startPage}"  end="${endPage}" step="1" var="i">
-      <a href="list.do?pageNum=${i }">[${i}]</a>
+      <a href="list.git?pageNum=${i }">[${i}]</a>
    </c:forEach>
    <c:if test="${endPage < pageCount }">
-       <a href="list.do?pageNum=${startPage + 10  }">[다음]</a>
+       <a href="list.git?pageNum=${startPage + 10  }">[다음]</a>
    </c:if>
 </c:if>
 
