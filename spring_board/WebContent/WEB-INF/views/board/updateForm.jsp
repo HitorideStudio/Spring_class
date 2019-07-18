@@ -11,7 +11,7 @@
 <body bgcolor="${bodyback_c}">  
 <center><b>글수정</b>
 <br>
-<form method="post" enctype="multipart/form-data" name="writeform" action="updatePro.do?pageNum=${pageNum}&num=${num}" onsubmit="return writeSave()">
+<form method="post" enctype="multipart/form-data" name="writeform" action="updatePro.git?pageNum=${pageNum}&num=${num}" onsubmit="return writeSave()">
 <table width="400" border="1" cellspacing="0" cellpadding="0"  bgcolor="${bodyback_c}" align="center">
   <tr>
     <td  width="70"  bgcolor="${value_c}" align="center">이 름</td>
@@ -52,7 +52,7 @@
      <input type="submit" value="글수정" >  
      <input type="reset" value="다시작성">
      <input type="button" value="목록보기" 
-       onclick="document.location.href='list.do?pageNum=${pageNum}'">
+       onclick="gitcument.location.href='list.git?pageNum=${pageNum}'">
    </td>
  </tr>
  </table>

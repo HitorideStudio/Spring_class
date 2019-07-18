@@ -6,7 +6,7 @@
 <script>
 	alert("삭제했다");
 </script>
-<meta http-equiv="Refresh" content="0;url=list.do?pageNum=${pageNum}" >
+<meta http-equiv="Refresh" content="0;url=list.git?pageNum=${pageNum}" >
 </c:if> 
  
 <c:if test="${check!=1 }">

@@ -11,7 +11,7 @@ ${num }
 <body bgcolor="${bodyback_c}">  
 <center><b>글쓰기</b>
 <br>
-<form method="post" enctype="multipart/form-data" name="writeform" action="writePro.do" onsubmit="return writeSave()">
+<form method="post" enctype="multipart/form-data" name="writeform" action="writePro.git" onsubmit="return writeSave()">
 <input type="hidden" name="num" value="${num}">
 <input type="hidden" name="ref" value="${ref}">
 <input type="hidden" name="re_step" value="${re_step}">
@@ -20,7 +20,7 @@ ${num }
 <table width="400" border="1" cellspacing="0" cellpadding="0"  bgcolor="${bodyback_c}" align="center">
    <tr>
     <td align="right" colspan="2" bgcolor="${value_c}">
-	    <a href="list.do"> 글목록</a> 
+	    <a href="list.git"> 글목록</a> 
    </td>
    </tr>
    <tr>
@@ -64,7 +64,7 @@ ${num }
  <td colspan=2 bgcolor="${value_c}" align="center"> 
   <input type="submit" value="글쓰기" >  
   <input type="reset" value="다시작성">
-  <input type="button" value="목록보기" OnClick="window.location='list.do'">
+  <input type="button" value="목록보기" OnClick="wingitw.location='list.git'">
 </td></tr></table>    
    
 </form>      

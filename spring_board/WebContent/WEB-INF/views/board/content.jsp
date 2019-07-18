@@ -42,16 +42,16 @@
   <tr height="30">      
     <td colspan="4" bgcolor="${value_c}" align="right" > 
 	  <input type="button" value="글수정" 
-       onclick="document.location.href='updateForm.do?num=${article.getNum()}&pageNum=${pageNum}'">
+       onclick="gitcument.location.href='updateForm.git?num=${article.getNum()}&pageNum=${pageNum}'">
 	   &nbsp;&nbsp;&nbsp;&nbsp;
 	  <input type="button" value="글삭제" 
-       onclick="document.location.href='deleteForm.do?num=${article.getNum()}&pageNum=${pageNum}'">
+       onclick="gitcument.location.href='deleteForm.git?num=${article.getNum()}&pageNum=${pageNum}'">
 	   &nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="답글쓰기" 
-       onclick="document.location.href='writeForm.do?num=${num}&ref=${ref}&re_step=${re_step}&re_level=${re_level}'">
+       onclick="gitcument.location.href='writeForm.git?num=${num}&ref=${ref}&re_step=${re_step}&re_level=${re_level}'">
 	   &nbsp;&nbsp;&nbsp;&nbsp;
        <input type="button" value="글목록" 
-       onclick="document.location.href='list.do?pageNum=${pageNum}'">
+       onclick="gitcument.location.href='list.git?pageNum=${pageNum}'">
     </td>
   </tr>
 </table>    

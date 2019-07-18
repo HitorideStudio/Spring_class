@@ -28,8 +28,7 @@ public class BoardBean {
 	private SqlSessionTemplate sql = null;
 	@Autowired
 	private BoardVO article = null;
-	@Autowired
-	private BoardDAO dao = null;
+	
 	
 	private ResultSet rs = null;
 	
@@ -123,6 +122,7 @@ public class BoardBean {
           
    
              count = (Integer)sql.selectOne("board.getArticleCount",list);
+             System.out.println(count);
              if (count > 0) {
                  articleList = new ArrayList();
                  BoardVO article= new BoardVO();

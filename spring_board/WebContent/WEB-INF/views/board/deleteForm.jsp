@@ -10,9 +10,9 @@
 <script language="JavaScript">      
      
   function deleteSave(){	
-	if(document.delForm.passwd.value==''){
+	if(gitcument.delForm.passwd.value==''){
 	alert("비밀번호를 입력하십시요.");
-	document.delForm.passwd.focus();
+	gitcument.delForm.passwd.focus();
 	return false;
  }
 }     
@@ -22,7 +22,7 @@
 <body bgcolor="${bodyback_c}">
 <center><b>글삭제</b>
 <br>
-<form method="POST" name="delForm"  action="deletePro.do?pageNum=${pageNum}" 
+<form method="POST" name="delForm"  action="deletePro.git?pageNum=${pageNum}" 
    onsubmit="return deleteSave()"> 
  <table border="1" align="center" cellspacing="0" cellpadding="0" width="360">
   <tr height="30">
@@ -38,7 +38,7 @@
     <td align=center bgcolor="${value_c}">
       <input type="submit" value="글삭제" >
       <input type="button" value="글목록" 
-       onclick="document.location.href='list.do?pageNum=${pageNum}&newname=${newname }'">     
+       onclick="gitcument.location.href='list.git?pageNum=${pageNum}&newname=${newname }'">     
    </td>
  </tr>  
 </table> 
