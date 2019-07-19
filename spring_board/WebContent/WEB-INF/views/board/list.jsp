@@ -49,18 +49,18 @@
     <c:choose>
     <c:when test="${article.re_level >0 }">
        <c:set var="wid" value="${10*article.re_level }"/>
-     <img src="/frame/images/level.gif" width="${wid }" height="16">
-     <img src="/frame/images/re.gif">
+     <img src="/spring_board/images/level.gif" width="${wid }" height="16">
+     <img src="/spring_board/images/re.gif">
    </c:when>
    <c:otherwise>
    <c:set var="wid" value="${article.re_level }"/>
-     <img src="/frame/images/level.gif" width="${wid }" height="16">
+     <img src="/spring_board/images/level.gif" width="${wid }" height="16">
    </c:otherwise>
    </c:choose>
       <a href="content.git?num=${article.num }&pageNum=${currentPage}">
           ${article.subject}</a> 
           <c:if test="${article.readcount>=20 }">
-         <img src="/frame/images/hot.gif" border="0"  height="16">
+         <img src="/spring_board/images/hot.gif" border="0"  height="16">
          </c:if> </td>
     <td align="center"  width="100"> 
        <a href="mailto:${article.email }">${article.writer }</a></td>
