@@ -41,7 +41,7 @@
       <td align="center"  width="100" >IP</td>    
     </tr>
     
-    <c:forEach begin="0" end="${articleList.size()}" step="1" var="a">
+    <c:forEach begin="0" end="${articleList.size()-1}" step="1" var="a">
       <c:set var="article" value="${articleList[a]}"/>
    <tr height="30">
     <td align="center"  width="50" > ${number} <c:set var="number" value="${number-1 }"/> </td>

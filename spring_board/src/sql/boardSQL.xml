@@ -3,27 +3,70 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="board">
-		<select id="insertArticle" parameterType="tv">
-			insert into board values(board_seq.NEXTVAL,#{writer},#{email},#{subject},#{passwd},#{reg_date},#{ref},#{re_step},
+		
+		
+		<update id="insertStep" parameterType="int">
+			update board set re_step=re_step+1 where ref= #{ref} and re_step> #{re_step}
+		</update>
+	
+		<select id="insertArticle" parameterType="tv" resultType="tv">
+			insert into board(num,writer,email,subject,passwd,reg_date,
+			ref,re_step,re_level,content,ip,orgname,newname) 
+			values(board_seq.NEXTVAL,#{writer},#{email},#{subject},#{passwd},#{reg_date},#{ref},#{re_step},
 			#{re_level},#{content},#{ip},#{orgname},#{newname})
 		</select>
 		
-		<select id="getArticleCount" resultType="int" parameterType="int">
+		<select id="getArticleCount" resultType="int" >
 			select count(*) from board
+		</select>
+		
+		<select id="getNumber" resultType="int">
+			select max(num) from board
 		</select>
 		
 		<select id="getArticles" resultType="tv" parameterType="list">
 			<![CDATA[
-			select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,r
-			from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,rownum r
-			from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount
-			from board order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= #{list0} and r <= #{list1}
+			select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,orgname,newname,r
+			 from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,orgname,newname,rownum r
+			 from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,orgname,newname
+			 from board order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= #{list[0]} and r <= #{list[1]}
 			]]>
 		</select>
+		<update id="readCount" parameterType="int">
+			update board set readcount=readcount+1 where num =#{value}
+		</update>
+		<select id="getArticle" resultType="tv" parameterType="int">
+			select * from board where num =#{value}
+		</select>
 	
-	
-	
-	
+		<select id="getNum" resultType="int">
+			select max(num) from fileNum
+		</select>
+
+		<insert id="getNumInsert">
+			insert into fileNum values(fileNum_seq.nextval)
+		</insert>
+		
+		<select id="check" resultType="String" parameterType="int">
+			select passwd from board where num = #{num}
+		</select>
+		<update id="updateArticle" parameterType="tv">
+			update board 
+			<trim suffixOverrides=","  prefix="set">
+				<if test="writer !=null"> writer = #{writer},</if>
+				<if test="email !=null"> email = #{email},</if>
+				<if test="subject !=null"> subject = #{subject},</if>
+				<if test="passwd !=null"> passwd = #{passwd},</if>
+				<if test="content !=null"> content = #{content},</if>
+				<if test="orgname !=null"> orgname = #{orgname},</if>
+				<if test="newname !=null"> newname = #{newname},</if>
+			</trim>
+			where num=#{num}
+		</update>
+		
+		<delete id="deleteArticle" parameterType="int">
+			delete from board where num=#{num}
+		</delete>
 	
 	
 	

@@ -37,21 +37,21 @@
   <tr>
     <td align="center" width="125" bgcolor="${value_c}">글내용</td>
     <td align="left" width="375" colspan="3"><pre>${article.getContent()}<br>
-    <img src="/frame/imgs/${newname}" width="150px"/></pre></td>
+    <img src="/spring_board/imgs/${newname}" width="150px"/></pre></td>
   </tr>
   <tr height="30">      
     <td colspan="4" bgcolor="${value_c}" align="right" > 
 	  <input type="button" value="글수정" 
-       onclick="gitcument.location.href='updateForm.git?num=${article.getNum()}&pageNum=${pageNum}'">
+       onclick="document.location.href='updateForm.git?num=${article.getNum()}&pageNum=${pageNum}'">
 	   &nbsp;&nbsp;&nbsp;&nbsp;
 	  <input type="button" value="글삭제" 
-       onclick="gitcument.location.href='deleteForm.git?num=${article.getNum()}&pageNum=${pageNum}'">
+       onclick="document.location.href='deleteForm.git?num=${article.getNum()}&pageNum=${pageNum}'">
 	   &nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="답글쓰기" 
-       onclick="gitcument.location.href='writeForm.git?num=${num}&ref=${ref}&re_step=${re_step}&re_level=${re_level}'">
+       onclick="document.location.href='writeForm.git?num=${num}&ref=${ref}&re_step=${re_step}&re_level=${re_level}'">
 	   &nbsp;&nbsp;&nbsp;&nbsp;
        <input type="button" value="글목록" 
-       onclick="gitcument.location.href='list.git?pageNum=${pageNum}'">
+       onclick="document.location.href='list.git?pageNum=${pageNum}'">
     </td>
   </tr>
 </table>    

@@ -64,7 +64,7 @@ ${num }
  <td colspan=2 bgcolor="${value_c}" align="center"> 
   <input type="submit" value="글쓰기" >  
   <input type="reset" value="다시작성">
-  <input type="button" value="목록보기" OnClick="wingitw.location='list.git'">
+  <input type="button" value="목록보기" OnClick="window.location='list.git'">
 </td></tr></table>    
    
 </form>      
