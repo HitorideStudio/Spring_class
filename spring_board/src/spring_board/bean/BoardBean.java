@@ -151,19 +151,21 @@ public class BoardBean {
 		try {
 	    request.setCharacterEncoding("UTF-8");
 	    MultipartFile mf = request.getFile("save");
-	    String imgs = request.getRealPath("imgs");
 	    String orgname = mf.getOriginalFilename();
-		
+	    //String newname = numi+orgname;
 		if(mf.getOriginalFilename() == null) {
 			article.setNewname("");
 			article.setOrgname("");
+			
 		} else {
-			String ext = orgname.substring(orgname.lastIndexOf('.'));
+			String imgs = request.getRealPath("imgs");
+		   
 			//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
 			sql.insert("board.getNumInsert");
-			int numi = sql.selectOne("board.getNum");
-			String newname = "images" + numi +ext;
-		
+		    int numi = sql.selectOne("board.getNum");
+		   //String ext = orgname.substring(orgname.lastIndexOf('.'));
+		   //String newname = "images" + numi +ext;
+		    String newname = numi+orgname;
 			File copyFile = new File( imgs+"//" +newname);
 			mf.transferTo(copyFile);
 			article.setNewname(newname);
