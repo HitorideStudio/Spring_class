@@ -33,10 +33,13 @@
     <td  width="70"  bgcolor="${value_c}" align="center" >내 용</td>
     <td align="left" width="330">
      <textarea name="content" rows="13" cols="40">${article.getContent()}</textarea>
-     <img src="/spring_board/imgs/${article.getNewname()}" width="150px"/></td>
+     <c:if test="${article.newname!=null }">
+     	<img src="/spring_board/imgs/${article.newname}" width="150px"/>
+     </c:if>
+     </td>
   </tr>
   <tr>
-  	<td  width="70"  bgcolor="${value_c}" align="center" >사진업로드</td>
+  	<td  width="70"  bgcolor="${value_c}" align="center" >사 진</td>
   	<td  width="330" >
     <input type="file" name="save"/></td>
   </tr>

@@ -1,6 +1,7 @@
 package spring_board.bean;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import board.BoardVO;
 
@@ -44,7 +45,6 @@ public class BoardBean {
 		  int ref=article.getRef(); 
 		  int re_step=article.getRe_step(); 
 		  int re_level=article.getRe_level();
-		  String newname = article.getNewname();
 		  request.setAttribute("num", num); 
 		  request.setAttribute("pageNum", pageNum);
 		  request.setAttribute("sdf", sdf); 
@@ -52,13 +52,27 @@ public class BoardBean {
 		  request.setAttribute("re_step", re_step); 
 		  request.setAttribute("re_level", re_level); 
 		  request.setAttribute("article", article);
-		  request.setAttribute("newname", newname); 
-		  System.out.println(newname);
 	  
 	  	}catch(Exception e) { 
 	  		e.printStackTrace(); 
 	  		} 
 	  	return "/board/content"; 
+	  }
+	  
+	  @RequestMapping("download.git")
+	  public ModelAndView download(String newname, HttpServletRequest request) {
+		  try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		  System.out.println("다운로드깃");
+		  String path = request.getRealPath("imgs");
+		  File f = new File(path+"//"+newname);
+		  ModelAndView mv = new ModelAndView("downloadView","downloadFile", f);
+		  //controller의 Id viewBean의 아들, downloadView의 get 파일로 매개변수, File의 f
+		  return mv;
 	  }
 	  
 	@RequestMapping("list.git")
@@ -146,42 +160,55 @@ public class BoardBean {
 		int ref = Integer.parseInt(request.getParameter("ref"));
 		int re_step = Integer.parseInt(request.getParameter("re_step"));
 		int re_level= Integer.parseInt(request.getParameter("re_level"));
-		int number = sql.selectOne("board.getNumber");
-	
+		//int number = sql.selectOne("board.getNumber");
+		int number = 0;
+		
 		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			
+		if(sql.selectOne("board.getNumber")==null) {
+			number=1;
+		}else {
+			number = sql.selectOne("board.getNumber");
+		}
+		
+		
 	    request.setCharacterEncoding("UTF-8");
 	    MultipartFile mf = request.getFile("save");
 	    String orgname = mf.getOriginalFilename();
-	    //String newname = numi+orgname;
-		if(mf.getOriginalFilename() == null) {
+	    System.out.println("orgname==="+orgname);
+	 
+		
+	    if(mf.getOriginalFilename() == "") {
 			article.setNewname("");
 			article.setOrgname("");
 			
-		} else {
+		}else{
 			String imgs = request.getRealPath("imgs");
-		   
 			//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
 			sql.insert("board.getNumInsert");
 		    int numi = sql.selectOne("board.getNum");
-		   //String ext = orgname.substring(orgname.lastIndexOf('.'));
-		   //String newname = "images" + numi +ext;
-		    String newname = numi+orgname;
+		    String ext = orgname.substring(orgname.lastIndexOf('.'));
+		    String newname = "images" + numi +ext;
 			File copyFile = new File( imgs+"//" +newname);
 			mf.transferTo(copyFile);
 			article.setNewname(newname);
 			article.setOrgname(orgname);
+			System.out.println("newname==="+newname);
 		}
+	    
 		if(num !=0) {
-			  sql.update("insertStep",num);
-			 re_step=re_step+1;
+			sql.update("insertStep",num);
+			
+			re_step=re_step+1;
 			re_level=re_level+1;
 		}else{ 
 			ref=number;
 			re_step=0;
 			re_level=0;
 		}
-		
-	
+			
 	    article.setNum(num);
 	    article.setWriter(request.getParameter("writer"));
 	    article.setSubject(request.getParameter("subject"));
@@ -229,31 +256,44 @@ public class BoardBean {
 		
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
+		article = sql.selectOne("board.getArticle",num);
 		
 		try {
 			request.setCharacterEncoding("UTF-8");
 			 MultipartFile mf = request.getFile("save");
-			    String imgs = request.getRealPath("imgs");
+			    
 			    String orgname = mf.getOriginalFilename();
-				String ext = orgname.substring(orgname.lastIndexOf('.'));
+			
 				String formpw = request.getParameter("passwd");
 				//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
 				int x= -1;
-				int numi = sql.selectOne("board.getNum");
-				String newname = "images" + numi +ext;
-				File copyFile = new File( imgs+"//" +newname);
-				mf.transferTo(copyFile);
-				
-			String dbpw = sql.selectOne("board.check",num);
-			if(dbpw.equals(formpw)) {
+			
+		
+				String dbpw = sql.selectOne("board.check",num);
+				if(dbpw.equals(formpw)) {
+					
+				if(mf.getOriginalFilename() == "") {
+					
+				} else {
+					String imgs = request.getRealPath("imgs");
+					File f = new File(imgs+"//"+article.getNewname());
+					f.delete();
+					int numi = sql.selectOne("board.getNum");
+					   String ext = orgname.substring(orgname.lastIndexOf('.'));
+					   String newname = "images" + numi +ext;
+						File copyFile = new File( imgs+"//" +newname);
+						mf.transferTo(copyFile);
+						article.setNewname(newname);
+						article.setOrgname(orgname);
+				}
 			article.setWriter(request.getParameter("writer"));
 			article.setEmail(request.getParameter("email"));
 			article.setSubject(request.getParameter("subject"));
 			article.setPasswd(request.getParameter("passwd"));
 			article.setContent(request.getParameter("content"));
 			article.setNum(num);
-			article.setNewname(newname);
-			article.setOrgname(orgname);
+			
+			
 			sql.update("board.updateArticle",article);
 			x= 1;
 			} else {
@@ -295,6 +335,7 @@ public class BoardBean {
 	  String passwd = request.getParameter("passwd");
 	  int x= -1;
 	  try {
+		  request.setCharacterEncoding("UTF-8");
 		  File f = new File( imgs+"//" +newname);
 		  f.delete();
 		  
@@ -313,6 +354,8 @@ public class BoardBean {
 	 
 	  	return "/board/deletePro";
 	  	}
+	  
+	  
 }	
 
 

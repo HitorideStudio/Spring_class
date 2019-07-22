@@ -36,6 +36,11 @@
     	<property name="defaultEncoding" value="UTF-8"/>
     </bean>
     
+    <bean id="downloadView" class="downloadBean.downloadview" />
+    <bean id="downloadViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" >
+         <property name="order" value="0"></property>
+    </bean>
+    
     <bean id ="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
     	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>

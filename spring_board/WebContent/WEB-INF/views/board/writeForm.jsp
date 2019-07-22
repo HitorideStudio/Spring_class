@@ -5,7 +5,17 @@
 <head>
 <title>게시판</title>
 <link href="style.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="script.js"></script>
+<script language="JavaScript">
+	function writeSave(){
+ 
+    	if(document.writeform.passwd.value==''){
+      		alert("비밀번호를 입력하지 않으셨습니다.");
+      		document.writeform.passwd.focus();
+      	return false;
+    	}
+	}
+
+</script>
 </head>
 ${num }
 <body bgcolor="${bodyback_c}">  
@@ -50,7 +60,7 @@ ${num }
      <textarea name="content" rows="13" cols="40"></textarea> </td>
   </tr>
   <tr>
-  	<td  width="70"  bgcolor="${value_c}" align="center" >사진업로드</td>
+  	<td  width="70"  bgcolor="${value_c}" align="center" >사 진</td>
   	<td  width="330" >
     <input type="file" name="save"/></td>
   </tr>
