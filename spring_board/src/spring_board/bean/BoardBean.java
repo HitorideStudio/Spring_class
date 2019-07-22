@@ -29,10 +29,7 @@ public class BoardBean {
 	private SqlSessionTemplate sql = null;
 	@Autowired
 	private BoardVO article = null;
-	
-	
 	private ResultSet rs = null;
-	
 	
 	  @RequestMapping("content.git") 
 	  public String content(HttpServletRequest
@@ -95,13 +92,11 @@ public class BoardBean {
            int endPage = startPage + pageBlock-1;
     
            try {
-          List articleList = null;
-          
+          List articleList = null;   
           ArrayList list = new ArrayList();
           list.add(startRow); 
           list.add(endRow);
           
-   
              count = (Integer)sql.selectOne("board.getArticleCount");
              System.out.println(count);
              if (count > 0) {
@@ -227,9 +222,7 @@ public class BoardBean {
 	    	e.printStackTrace();
 	    }
 		 return "/board/writePro";
-
 }
-
 
 	@RequestMapping("updateForm.git")
 	public String updateForm(HttpServletRequest request, HttpServletResponse response) {
@@ -241,13 +234,10 @@ public class BoardBean {
 			request.setCharacterEncoding("UTF-8");
 			request.setAttribute("num", num);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("article", article);
-			
-		} catch (Exception e) {
-			
+			request.setAttribute("article", article);	
+		} catch (Exception e) {	
 			e.printStackTrace();
-		}
-		
+		}	
 		 return "/board/updateForm";
 	}
 	
@@ -260,42 +250,37 @@ public class BoardBean {
 		
 		try {
 			request.setCharacterEncoding("UTF-8");
-			 MultipartFile mf = request.getFile("save");
-			    
-			    String orgname = mf.getOriginalFilename();
-			
-				String formpw = request.getParameter("passwd");
+			 MultipartFile mf = request.getFile("save"); 
+			 String orgname = mf.getOriginalFilename();
+			 String formpw = request.getParameter("passwd");
 				//DB연결 후 번호 받아온다. 시퀀스 증가 후 받아오기
-				int x= -1;
-			
-		
-				String dbpw = sql.selectOne("board.check",num);
+			 int x= -1;
+			 String dbpw = sql.selectOne("board.check",num);
 				if(dbpw.equals(formpw)) {
 					
-				if(mf.getOriginalFilename() == "") {
+					if(mf.getOriginalFilename() == "") {
 					
-				} else {
-					String imgs = request.getRealPath("imgs");
-					File f = new File(imgs+"//"+article.getNewname());
-					f.delete();
-					int numi = sql.selectOne("board.getNum");
-					   String ext = orgname.substring(orgname.lastIndexOf('.'));
-					   String newname = "images" + numi +ext;
+					} else {
+						String imgs = request.getRealPath("imgs");
+						File f = new File(imgs+"//"+article.getNewname());
+						f.delete();
+						int numi = sql.selectOne("board.getNum");
+						String ext = orgname.substring(orgname.lastIndexOf('.'));
+					    String newname = "images" + numi +ext;
 						File copyFile = new File( imgs+"//" +newname);
 						mf.transferTo(copyFile);
 						article.setNewname(newname);
 						article.setOrgname(orgname);
 				}
-			article.setWriter(request.getParameter("writer"));
-			article.setEmail(request.getParameter("email"));
-			article.setSubject(request.getParameter("subject"));
-			article.setPasswd(request.getParameter("passwd"));
-			article.setContent(request.getParameter("content"));
-			article.setNum(num);
-			
-			
-			sql.update("board.updateArticle",article);
-			x= 1;
+					article.setWriter(request.getParameter("writer"));
+					article.setEmail(request.getParameter("email"));
+					article.setSubject(request.getParameter("subject"));
+					article.setPasswd(request.getParameter("passwd"));
+					article.setContent(request.getParameter("content"));
+					article.setNum(num);
+
+					sql.update("board.updateArticle",article);
+					x= 1;
 			} else {
 				x= 0 ;
 			}
@@ -327,36 +312,30 @@ public class BoardBean {
 	  @RequestMapping("deletePro.git")
 	  public String deletePro(HttpServletRequest request) {
 	  
-	  String newname = request.getParameter("newname");
-	  String imgs = request.getRealPath("imgs");
-	  System.out.println(newname);
-	  int num = Integer.parseInt(request.getParameter("num"));
-	  String pageNum = request.getParameter("pageNum");
-	  String passwd = request.getParameter("passwd");
-	  int x= -1;
-	  try {
-		  request.setCharacterEncoding("UTF-8");
-		  File f = new File( imgs+"//" +newname);
-		  f.delete();
-		  
-		  String dbpw = sql.selectOne("board.check",num);
-		  if(dbpw.equals(passwd)) {
-			  sql.update("board.deleteArticle",num);
-			  x=1;
-		  }else {
-			  x=0;
-		  }
-		  request.setAttribute("check", x);
-		  request.setAttribute("pageNum",pageNum);
+		  String newname = request.getParameter("newname");
+		  String imgs = request.getRealPath("imgs");
+		  System.out.println(newname);
+		  int num = Integer.parseInt(request.getParameter("num"));
+		  String pageNum = request.getParameter("pageNum");
+		  String passwd = request.getParameter("passwd");
+		  int x= -1;
+		  try {
+			  request.setCharacterEncoding("UTF-8");
+			  File f = new File( imgs+"//" +newname);
+			  f.delete();
+			  String dbpw = sql.selectOne("board.check",num);
+			  if(dbpw.equals(passwd)) {
+				  sql.update("board.deleteArticle",num);
+				  x=1;
+			  }else {
+				  x=0;
+			  }
+			  request.setAttribute("check", x);
+			  request.setAttribute("pageNum",pageNum);
 		  }catch(Exception e){
 			  e.printStackTrace();
-		}
+		  }
 	 
-	  	return "/board/deletePro";
-	  	}
-	  
-	  
+	  		return "/board/deletePro";
+	  	}	  
 }	
-
-
-
