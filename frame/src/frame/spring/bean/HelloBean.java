@@ -1,8 +1,11 @@
 package frame.spring.bean;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import frame.spring.vo.Bar;
@@ -46,7 +49,19 @@ public class HelloBean {
 		mv.setViewName("/0708/pro.jsp");
 		return mv;
 	}
-
+	@RequestMapping("time.do")
+	public String time() {
+		return "/0723/time";
+	}
+	@RequestMapping("date.do")
+	public String date() {
+		return "/0723/date";
+	}
+	@RequestMapping("date2")
+	public @ResponseBody String date2() {
+		Date d = new Date();
+		return d.toString();
+	}
 	
 
 }
