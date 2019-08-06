@@ -57,7 +57,7 @@ public class HelloBean {
 	public String date() {
 		return "/0723/date";
 	}
-	@RequestMapping("date2")
+	@RequestMapping("date2.do")
 	public @ResponseBody String date2() {
 		Date d = new Date();
 		return d.toString();

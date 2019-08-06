@@ -6,7 +6,7 @@
 		function time(){
 			$.ajax({
 				type : "post" ,
-				url : "date.do",
+				url : "date2.do",
 				
 				success : function(data){
 					$("#time").html(data);
