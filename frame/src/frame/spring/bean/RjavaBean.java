@@ -114,8 +114,8 @@ public class RjavaBean {
 		conn.assign("path", path);
 		conn.eval("setwd(path)");
 		conn.eval("png('grade.png')");
-		conn.eval("score <-read.csv('D:/Dropbox/R/score.csv')");
 		
+		conn.eval("score <-read.csv('D:/Dropbox/R/score.csv')");
 		conn.eval("class1<-subset(score,class=='1',select=c(id,math,english,science))");
 		conn.eval("class2<-subset(score,class=='2',select=c(id,math,english,science))");
 		conn.eval("class3<-subset(score,class=='3',select=c(id,math,english,science))");
