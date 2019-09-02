@@ -16,5 +16,9 @@ public class GoBean {
 	public String map() {
 		return "/finder/map";
 	}
+	@RequestMapping("cluster.go")
+	public String cluster() {
+		return "/finder/cluster";
+	}
 
 }
